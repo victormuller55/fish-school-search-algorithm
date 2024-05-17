@@ -20,9 +20,9 @@ public class Main {
 
         ArrayList<Double> aptidoes = new ArrayList<>();
 
-        int successfulTests = 0;
-        ArrayList<Double> arraySuccess = new ArrayList<>();
-        double successThreshold = 0.001;
+        int numeroDeResultadosComSucesso = 0;
+        ArrayList<Double> melhoresResultados = new ArrayList<>();
+        double melhoresResultado = 0.001;
         
 
         for (int j = 1; j <= 51; j++) {
@@ -42,34 +42,33 @@ public class Main {
                     }
                 }
 
-                System.out.println(
-                        "Vez: " + j + ", Interação " + (interacoes + 1) + ": Melhor Aptidão = " + melhorPeixe.aptidao);
+                System.out.println("Execução n°: " + j + ", Interação: " + (interacoes + 1) + ", Melhor Aptidão = "+ melhorPeixe.aptidao);
 
-                if (melhorPeixe.aptidao < successThreshold) {
-                    
-                    arraySuccess.add(melhorPeixe.aptidao);
-                
-                    successfulTests++;
+                // Adiciona os melhores resultados em uma lista e soma o número de resultados bons
+                if (melhorPeixe.aptidao < melhoresResultado) {
+                    melhoresResultados.add(melhorPeixe.aptidao);
+                    numeroDeResultadosComSucesso++;
                 }
-                
+
+                // Para a execução caso a aptidão seja menor que 10 elevado a -8
                 if (melhorPeixe.aptidao < 10e-8) {
                     break;
                 }
-
-                
             }
-
+            
+            // Adiciona as aptdões em uma lista
             aptidoes.add(melhorPeixe.aptidao);
         }
         
-        System.out.println("Desempenho: " + Calculos.calcularDesepenho(successfulTests, arraySuccess));
-        System.out.println("Taxa de Sucesso: " + Calculos.calcularTaxaDeSucesso(successfulTests));
+        // Mostra resultados
+        System.out.println("Desempenho: " + Calculos.calcularDesepenho(numeroDeResultadosComSucesso, melhoresResultados));
+        System.out.println("Taxa de Sucesso: " + Calculos.calcularTaxaDeSucesso(numeroDeResultadosComSucesso));
         System.out.println("Melhor: " + Calculos.calcularMelhor(aptidoes));
         System.out.println("Pior: " + Calculos.calcularPior(aptidoes));
         System.out.println("Média: " + Calculos.calcularMedia(aptidoes));
         System.out.println("Mediana: " + Calculos.calcularMediana(aptidoes));
         System.out.println("Desvio Padrão: " + Calculos.calcularDesvioPadrao(aptidoes));
-        Calculos.calcularMediaEDesvio(aptidoes, "F1");    
+        System.out.println("Média e desvio: "+ Calculos.calcularMediaEDesvio(aptidoes));    
 
         System.out.println("Melhor solução encontrada:");
 

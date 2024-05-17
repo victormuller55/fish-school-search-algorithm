@@ -14,10 +14,10 @@ public class Calculos {
         return numeroDeTestesBemSucedidos / 51;
     }
 
-    public static void calcularMediaEDesvio(ArrayList<Double> avaliacoes, String funcao) {
+    public static String calcularMediaEDesvio(ArrayList<Double> avaliacoes) {
         double media = Calculos.calcularMedia(avaliacoes);
         double desvioPadrao =  Calculos.calcularDesvioPadrao(avaliacoes);
-        System.out.printf("%s: %.2f ± %.2f%n", funcao, media, desvioPadrao);
+        return media + " ± " + desvioPadrao;
     }
 
     public static double calcularMelhor(ArrayList<Double> aptidoes) {

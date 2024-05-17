@@ -8,64 +8,72 @@ public class FishSchoolSearch {
     // Parametros do Algoritimo
     private static final int NUMERO_DE_PEIXES = 200;
     private static final double TAMANHO_DE_PASSOS = 0.1;
-    private static final double COEFICIENTE_DE_ATRACAO = 0.01; 
+    private static final double COEFICIENTE_DE_ATRACAO = 0.01;
     private static final double COEFICIENTE_DE_REPULSAO = 0.1;
-      
+
     // Espaço de Busca
     private static final double LIMITE_INFERIOR = -100.0;
     private static final double LIMITE_SUPERIOR = 100.0;
 
-    private static final double A = 0;
-
-    private static final int N = 20;
-    private static final double a = 0.5;
-    private static final double b = 3.0;
-
-    // public static double funcaoObjetivo(double[] x) {
-    
-    //      ArrayList<Double> f = new ArrayList<>();
-    
-    //      for (int i = 0; i < x.length - 1; i++) {
-    //          f.add(100 * (Math.pow(x[i], 2) - x[i + 1]) * (Math.pow(x[i], 2) - x[i + 1]) + Math.pow(x[i] - 1, 2));
-    //      }
-    
-    //      double sum = 0;
-    
-    //      for (double val : f) {
-    //          sum += val;
-    //      }
-        
-    //      return sum;
-    // }
-
-    // public static double funcaoObjetivo(double[] x) {
-    //     int n = x.length;
-    //     double sum = A * n;
-    
-    //      for (int i = 0; i < n; i++) {
-    //          sum += x[i] * x[i] - A * Math.cos(2 * Math.PI * x[i]);
-    //      }
-    
-    //      return sum;
-    // }  
+    // Função de Rosenbrock (Função objetivo)
 
     public static double funcaoObjetivo(double[] x) {
-        double sum = 0.0;
 
-        for (double xi : x) {
-            double sum1 = 0.0;
-            double sum2 = 0.0;
+        ArrayList<Double> f = new ArrayList<>();
 
-            for (int i = 0; i <= N; i++) {
-                sum1 += Math.pow(a, i) * Math.cos(2 * Math.PI * Math.pow(b, i) * (xi + 0.5));
-                sum2 += Math.pow(a, i) * Math.cos(2 * Math.PI * Math.pow(b, i) * 0.5);
-            }
+        for (int i = 0; i < x.length - 1; i++) {
+            f.add(100 * (Math.pow(x[i], 2) - x[i + 1]) * (Math.pow(x[i], 2) - x[i + 1]) + Math.pow(x[i] - 1, 2));
+        }
 
-            sum += sum1 - N * sum2;
+        double sum = 0;
+
+        for (double val : f) {
+            sum += val;
         }
 
         return sum;
-     }
+    }
+
+    // Função de Rastrigin (Função objetivo)
+
+    // public static double funcaoObjetivo(double[] x) {
+    //
+    //     private static final double A = 0;
+    //
+    //     int n = x.length;
+    //     double sum = A * n;
+    //
+    //      for (int i = 0; i < n; i++) {
+    //          sum += x[i] * x[i] - A * Math.cos(2 * Math.PI * x[i]);
+    //      }
+    //
+    //      return sum;
+    // }  
+
+    // Função de Weierstrass (Função objetivo)
+    
+    // public static double funcaoObjetivo(double[] x) {
+
+    //     private static final int N = 20;
+    //     private static final double a = 0.5;
+    //     private static final double b = 3.0;
+
+    //     double sum = 0.0;
+    //
+    //     for (double xi : x) {
+    //         double sum1 = 0.0;
+    //         double sum2 = 0.0;
+    //
+    //         for (int i = 0; i <= N; i++) {
+    //             sum1 += Math.pow(a, i) * Math.cos(2 * Math.PI * Math.pow(b, i) * (xi + 0.5));
+    //             sum2 += Math.pow(a, i) * Math.cos(2 * Math.PI * Math.pow(b, i) * 0.5);
+    //         }
+    //
+    //         sum += sum1 - N * sum2;
+    //     }
+    //
+    //     return sum;
+    //  }
 
     // O objetivo dessa função é criar um cardume de peixes em diferentes coordenadas.
 
@@ -78,7 +86,7 @@ public class FishSchoolSearch {
 
         // Esse for vai criar cada peixe do cardume
         for (int i = 0; i < NUMERO_DE_PEIXES; i++) {
-    
+
             Peixe peixe = new Peixe(dimensao);
 
             // Esse for vai criar a posição de cada peixe do cardume
@@ -88,8 +96,6 @@ public class FishSchoolSearch {
 
             // Aqui é criado a aptidão do peixe, utilizando a função objetivo.
             peixe.aptidao = funcaoObjetivo(peixe.posicao);
-
-            System.out.println(peixe.aptidao);
 
             // Aqui é adicionado o peixe criado dentro do cardume.
             cardumeDePeixes[i] = peixe;
@@ -145,7 +151,7 @@ public class FishSchoolSearch {
             if (novaPosicao[i] < LIMITE_INFERIOR) {
                 novaPosicao[i] = LIMITE_INFERIOR;
             } else if (novaPosicao[i] > LIMITE_SUPERIOR) {
-                 novaPosicao[i] = LIMITE_SUPERIOR;
+                novaPosicao[i] = LIMITE_SUPERIOR;
             }
 
             peixe.posicao = novaPosicao; // Atuliza a posição do peixe
@@ -153,7 +159,7 @@ public class FishSchoolSearch {
         }
     }
 
-        static void atualizaPosicaoDoPeixes(Peixe peixe, Peixe[] cardumeDePeixes) {
+    static void atualizaPosicaoDoPeixes(Peixe peixe, Peixe[] cardumeDePeixes) {
 
         Random numeroAleatorio = new Random();
         double[] novaPosicao = new double[peixe.posicao.length]; // Nessa variavel será armazenada a nova posição do peixe
