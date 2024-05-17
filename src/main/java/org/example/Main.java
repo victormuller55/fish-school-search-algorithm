@@ -2,12 +2,13 @@ package org.example;
 
 import static org.example.FishSchoolSearch.atualizaPosicaoDoPeixe;
 import static org.example.FishSchoolSearch.iniciaCardumeDePeixes;
-
 import java.util.ArrayList;
 
 public class Main {
 
     public static void main(String[] args) {
+
+        System.out.println("\n---------------- INICIANDO ALGORITIMO FISH SCHOOL SEARCH ----------------\n");
 
         // Coloca um valor maximo de interações
         final int MAXIMO_DE_INTERACOES = 500;
@@ -21,11 +22,12 @@ public class Main {
         ArrayList<Double> aptidoes = new ArrayList<>();
 
         int numeroDeResultadosComSucesso = 0;
+        int numeroDeCiclos = 5;
         ArrayList<Double> melhoresResultados = new ArrayList<>();
         double melhoresResultado = 0.001;
         
 
-        for (int j = 1; j <= 51; j++) {
+        for (int j = 1; j <= numeroDeCiclos; j++) {
 
             // Aqui é inicializado as interações utilizando o for
             for (int interacoes = 0; interacoes < MAXIMO_DE_INTERACOES; interacoes++) {
@@ -42,7 +44,8 @@ public class Main {
                     }
                 }
 
-                System.out.println("Execução n°: " + j + ", Interação: " + (interacoes + 1) + ", Melhor Aptidão = "+ melhorPeixe.aptidao);
+                System.out.println("Ciclo N°: " + j + ", Interação: " + (interacoes + 1) + ", Melhor Aptidão = "
+                        + melhorPeixe.aptidao);
 
                 // Adiciona os melhores resultados em uma lista e soma o número de resultados bons
                 if (melhorPeixe.aptidao < melhoresResultado) {
@@ -55,27 +58,32 @@ public class Main {
                     break;
                 }
             }
-            
+
             // Adiciona as aptdões em uma lista
             aptidoes.add(melhorPeixe.aptidao);
         }
-        
-        // Mostra resultados
-        System.out.println("Desempenho: " + Calculos.calcularDesepenho(numeroDeResultadosComSucesso, melhoresResultados));
-        System.out.println("Taxa de Sucesso: " + Calculos.calcularTaxaDeSucesso(numeroDeResultadosComSucesso));
-        System.out.println("Melhor: " + Calculos.calcularMelhor(aptidoes));
-        System.out.println("Pior: " + Calculos.calcularPior(aptidoes));
-        System.out.println("Média: " + Calculos.calcularMedia(aptidoes));
-        System.out.println("Mediana: " + Calculos.calcularMediana(aptidoes));
-        System.out.println("Desvio Padrão: " + Calculos.calcularDesvioPadrao(aptidoes));
-        System.out.println("Média e desvio: "+ Calculos.calcularMediaEDesvio(aptidoes));    
 
-        System.out.println("Melhor solução encontrada:");
+        System.out.println("\n---------------- DADOS DE ENTRADA ----------------\n");
 
-        for (int i = 0; i < dimensoes; i++) {
-            System.out.println("x[" + i + "] = " + melhorPeixe.posicao[i]);
-        }
+        System.out.println("N° de dimensões = " + dimensoes);
+        System.out.println("N° de ciclos = " + numeroDeCiclos);
+        System.out.println("N° máximo de interações = " + MAXIMO_DE_INTERACOES);
+        System.out.println("N° peixes (possiveis soluções) = 200");
+        System.out.println("Espaço de busca = 100 e -100");
+
+        System.out.println("\n---------------- RESULTADOS ----------------\n");
 
         System.out.println("Aptidão = " + melhorPeixe.aptidao);
+        System.out.println("Melhor = " + Calculos.calcularMelhor(aptidoes));
+        System.out.println("Pior = " + Calculos.calcularPior(aptidoes));
+        System.out.println("Média = " + Calculos.calcularMedia(aptidoes));
+        System.out.println("Mediana = " + Calculos.calcularMediana(aptidoes));
+        System.out.println("Desvio Padrão = " + Calculos.calcularDesvioPadrao(aptidoes));
+        System.out.println("Desempenho = " + Calculos.calcularDesepenho(numeroDeResultadosComSucesso, melhoresResultados));
+        System.out.println("Taxa de Sucesso = " + Calculos.calcularTaxaDeSucesso(numeroDeResultadosComSucesso));
+        System.out.println("Média e desvio = " + Calculos.calcularMediaEDesvio(aptidoes));
+        
+        System.out.println("\n---------------- FIM DO ALGORITIMO ----------------\n");
+
     }
 }
